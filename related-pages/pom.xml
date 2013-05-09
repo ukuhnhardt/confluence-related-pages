@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>jvm.meetup.confluence</groupId>
     <artifactId>related-pages</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <organization>
         <name>Example Company</name>
         <url>http://www.example.com/</url>
     </organization>
-
     <name>related-pages</name>
     <description>This is the jvm.meetup.confluence:related-pages plugin for Atlassian Confluence.</description>
     <packaging>atlassian-plugin</packaging>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -31,7 +25,6 @@
             <version>${confluence.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- WIRED TEST RUNNER DEPENDENCIES -->
         <dependency>
             <groupId>com.atlassian.plugins</groupId>
@@ -50,8 +43,19 @@
             <artifactId>gson</artifactId>
             <version>2.2.2-atlassian-1</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.5</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -73,12 +77,10 @@
             </plugin>
         </plugins>
     </build>
-
     <properties>
         <confluence.version>4.3.7</confluence.version>
         <confluence.data.version>4.3.7</confluence.data.version>
         <amps.version>4.1.6</amps.version>
         <plugin.testrunner.version>1.1.1</plugin.testrunner.version>
     </properties>
-
 </project>
