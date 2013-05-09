@@ -28,7 +28,12 @@
 
     <xhtml-macro name="related-pages" key="related-pages" class="jvm.meetup.confluence.macro.RelatedPagesMacro">
         <description>Display related pages</description>
-        <parameters />
+        <parameters>
+            <parameter name="logic" type="enum" default="AND" required="true">
+                <value name="AND" />
+                <value name="OR" />
+            </parameter>
+        </parameters>
         <category name="confluence-content" />
     </xhtml-macro>
 </atlassian-plugin>
