@@ -29,7 +29,7 @@
     <xhtml-macro name="related-pages" key="related-pages" class="jvm.meetup.confluence.macro.RelatedPagesMacro">
         <description>Display related pages</description>
         <parameters>
-            <parameter name="logic" type="enum" default="AND" required="true">
+            <parameter name="logic" type="enum" default="OR" required="true">
                 <value name="AND" />
                 <value name="OR" />
             </parameter>

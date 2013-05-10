@@ -1,0 +1,10 @@
+#* @vtlvariable name="page" type="com.atlassian.confluence.pages.AbstractPage" *#
+
+    <h1>Related Pages</h1>
+<div>
+    <ul class="related-pages">
+#foreach($page in $pages)
+    <li><a href="$req.contextPath$page.urlPath">$page.title</a> </li>
+#end
+    </ul>
+</div>
