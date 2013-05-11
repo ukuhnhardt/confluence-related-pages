@@ -7,6 +7,7 @@
     <vendor name="${project.organization.name}" url="${project.organization.url}"/>
     <param name="plugin-icon">images/pluginIcon.png</param>
     <param name="plugin-logo">images/pluginLogo.png</param>
+    <param name="atlassian-licensing-enabled">true</param>
   </plugin-info>
   <!-- add our i18n resource -->
   <resource type="i18n" name="i18n" location="related-pages"/>
@@ -18,22 +19,28 @@
     <resource type="download" name="images/" location="/images"/>
     <context>related-pages</context>
   </web-resource>
-  <!-- publish our component -->
-  <component key="myPluginComponent" class="jvm.meetup.confluence.MyPluginComponentImpl" public="true">
-    <interface>jvm.meetup.confluence.MyPluginComponent</interface>
-  </component>
   <!-- import from the product container -->
   <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
   <component-import key="labelManager" interface="com.atlassian.confluence.labels.LabelManager" filter=""/>
-
-    <xhtml-macro name="related-pages" key="related-pages" class="jvm.meetup.confluence.macro.RelatedPagesMacro">
-        <description>Display related pages</description>
-        <parameters>
-            <parameter name="logic" type="enum" default="OR" required="true">
-                <value name="AND" />
-                <value name="OR" />
-            </parameter>
-        </parameters>
-        <category name="confluence-content" />
-    </xhtml-macro>
+  <xhtml-macro name="related-pages" key="related-pages" class="jvm.meetup.confluence.macro.RelatedPagesMacro">
+    <description>Display related pages</description>
+    <parameters>
+      <parameter name="logic" type="enum" default="OR" required="true">
+        <value name="AND"/>
+        <value name="OR"/>
+      </parameter>
+    </parameters>
+    <category name="confluence-content"/>
+  </xhtml-macro>
+  <component-import key="pluginAccessor" interface="com.atlassian.plugin.PluginAccessor"/>
+  <component-import key="pluginController" interface="com.atlassian.plugin.PluginController"/>
+  <component-import key="txTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate"/>
+  <component-import key="templateRenderer" interface="com.atlassian.templaterenderer.TemplateRenderer"/>
+  <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+  <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider"/>
+  <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager"/>
+  <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+  <component key="thirdPartyPluginLicenseStorageManager" class="com.atlassian.upm.license.storage.lib.ThirdPartyPluginLicenseStorageManagerImpl"/>
+  <component key="pluginLicenseStoragePluginInstaller" class="com.atlassian.upm.license.storage.lib.PluginLicenseStoragePluginInstaller"/>
+  <component key="atlassianMarketplaceUriFactory" class="com.atlassian.upm.license.storage.lib.AtlassianMarketplaceUriFactoryImpl"/>
 </atlassian-plugin>
