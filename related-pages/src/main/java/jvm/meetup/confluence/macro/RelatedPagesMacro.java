@@ -10,11 +10,10 @@ import com.atlassian.confluence.macro.MacroExecutionException;
 import com.atlassian.confluence.pages.AbstractPage;
 import com.atlassian.confluence.renderer.radeox.macros.MacroUtils;
 import com.atlassian.confluence.util.velocity.VelocityUtils;
-import com.atlassian.velocity.VelocityContextUtils;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.atlassian.upm.api.license.entity.PluginLicense;
+import com.atlassian.upm.api.util.Option;
+import com.atlassian.upm.license.storage.lib.PluginLicenseStoragePluginUnresolvedException;
+import com.atlassian.upm.license.storage.lib.ThirdPartyPluginLicenseStorageManagerImpl;
 import com.opensymphony.util.TextUtils;
 
 import javax.annotation.Nullable;
@@ -28,13 +27,25 @@ public class RelatedPagesMacro implements Macro {
     public static final String PARAM_LOGIC = "logic";
 
     private final LabelManager labelManager;
+    private final ThirdPartyPluginLicenseStorageManagerImpl licenseManager;
 
-    public RelatedPagesMacro(LabelManager labelManager) {
+    public RelatedPagesMacro(LabelManager labelManager, ThirdPartyPluginLicenseStorageManagerImpl licenseManager) {
         this.labelManager = labelManager;
+        this.licenseManager = licenseManager;
     }
 
     @Override
     public String execute(Map<String, String> parameters, String body, ConversionContext conversionContext) throws MacroExecutionException {
+
+        try {
+            Option<PluginLicense> license =  licenseManager.getLicense();
+            if (!license.isDefined() || !license.get().isValid()){
+                return "<div class='aui-message error'>Invalid License!</div>";
+            }
+        } catch (PluginLicenseStoragePluginUnresolvedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            // do nothing
+        }
 
         ContentEntityObject self = conversionContext.getPageContext().getEntity();
         List<Label> labels = self.getLabels();
